@@ -29,6 +29,40 @@
     img {
       max-width: 100%;
     }
+
+    /* .card-title {
+
+    } */
+
+    .card-list {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+  }
+
+    .outer-modal {
+      background-color: rgba(85, 107, 47, 0.856);
+      display: grid;
+      place-items: center center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+	    opacity: 0;
+    }
+
+    .outer-modal.open {
+	    pointer-events: all;
+	    opacity: 1;
+    }
+
+    .inner-modal {
+      background-color: white;
+      min-width: 300px;
+      min-height: 300px;
+    }
   </style>
 	<body>
 		<div class="container"></div>
