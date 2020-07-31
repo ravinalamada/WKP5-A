@@ -4,10 +4,39 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>WKP5</title>
-	</head>
+  </head>
+  <style>
+    .container {
+      background-color: rgba(0, 0, 0, 0.178);
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+  }
+
+  .cards {
+    background-color: burlywood;
+    margin-block-end: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+    img {
+      max-width: 100%;
+    }
+  </style>
 	<body>
 		<div class="container"></div>
-		<button class="generate">GENERATE RECIPES</button>
+    <button class="generate">GENERATE RECIPES</button>
+    <div class="outer-modal">
+      <div class="inner-modal">
+      </div>
+    </div>
 	</body>
 	<script src="script.js"></script>
 </html>

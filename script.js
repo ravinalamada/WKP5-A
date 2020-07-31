@@ -49,10 +49,30 @@ const recipes = [
 ];
 
 const renderCard = () => {
-	// check the recipes collection
+    // const keys = Object.keys(recipes[0]);
+    // var div = '<div class=container>'
+    for(let i = 0; i < recipes.length; i++) {
+      const myHtml = `
+        <div class ="cards">
+          <h2>${recipes[i].title}</h2>
+          <img src="${recipes[i].picture}"></img>
+          <div class="card">
+            <p>${recipes[i].difficulty}</p>
+            <p>${recipes[i].timing}</p>
+            <p>${recipes[i].author}</p>
+          </div>
+          <button type="button" class="button">More Info</button>
+        </div>
+      `
+      const container = document.querySelector('.container');
+      container.insertAdjacentHTML("beforeend", myHtml);
+      console.log(container);
+    };
+  // check the recipes collection
 	// generate the HTML
 	// put it in the DOM
 };
+
 
 const generateButton = document.querySelector('button.generate');
 generateButton.addEventListener('click', renderCard);
