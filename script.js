@@ -1,6 +1,7 @@
 console.log('HELLO');
 
 // References
+const container = document.querySelector('.container');
 const generateButton = document.querySelector('button.generate');
 const outerModal = document.querySelector('.outer-modal');
 const innerModal = document.querySelector('.inner-modal');
@@ -8,120 +9,248 @@ const innerModal = document.querySelector('.inner-modal');
 //  Recipes object that will be accessed later
 
 const recipes = [
-	{
-		title: 'Eggs',
-		picture: 'https://bit.ly/2ZXyiKI',
-		author: 'Loïc',
-		difficulty: 'easy',
-		timing: '15',
-		ingredients: ['eggs', 'salt', 'water'],
-		steps: [
-			'Put a pan on the fire',
-			'Crack the eggs on it',
-			'Wait, put them out',
-			'Add some salt on it',
-		],
-		id: 'eggs-recipe',
-	},
-	{
-		title: 'Eggs',
-		picture: 'https://bit.ly/2ZXyiKI',
-		author: 'Loïc',
-		difficulty: 'easy',
-		timing: '15',
-		ingredients: ['eggs', 'salt', 'water'],
-		steps: [
-			'Put a pan on the fire',
-			'Crack the eggs on it',
-			'Wait, put them out',
-			'Add some salt on it',
-		],
-		id: 'fish-recipe',
-	},
-	{
-		title: 'My recipe',
-		picture: 'https://bit.ly/2ZXyiKI',
-		author: 'Loïc',
-		difficulty: 'easy',
-		timing: '15',
-		ingredients: ['eggs', 'salt', 'water'],
-		steps: [
-			'Put a pan on the fire',
-			'Crack the eggs on it',
-			'Wait, put them out',
-			'Add some salt on it',
-		],
-		id: 'chicken-recipe',
-	},
+  {
+    title: 'Eggs',
+    picture: 'https://bit.ly/2ZXyiKI',
+    author: 'Loïc',
+    difficulty: 'easy',
+    timing: '15',
+    ingredients: ['eggs', 'salt', 'water'],
+    steps: [
+      'Put a pan on the fire',
+      'Crack the eggs on it',
+      'Wait, put them out',
+      'Add some salt on it',
+    ],
+    id: 1596168482053,
+  },
+  {
+    title: 'Burger',
+    picture: 'https://res.cloudinary.com/hv9ssmzrz/image/fetch/c_fill,f_auto,h_600,q_auto,w_800/https://s3-eu-west-1.amazonaws.com/images-ca-1-0-1-eu/tag_photos/original/1288/burger_flickr_6870386851_9fec857cec_b.jpg',
+    author: 'Loïc',
+    difficulty: 'easy',
+    timing: '15',
+    ingredients: ['eggs', 'salt', 'water'],
+    steps: ['Grill the meat',
+      'Put it inside two buns',
+      'Add salad',
+      'And so on.'
+    ],
+    id: 1596168522409,
+  },
+  {
+    title: 'Fish',
+    picture: 'fish-dish.jpg',
+    author: 'Loïc',
+    difficulty: 'easy',
+    timing: '15',
+    ingredients: ['eggs', 'salt', 'water'],
+    steps: [
+      'Put a pan on the fire',
+      'Crack the eggs on it',
+      'Wait, put them out',
+      'Add some salt on it',
+    ],
+    id: 1596168522407,
+  },
 ];
 
 // Creat card Html and put contents which are accessed from the array obj and add append it to DOM
 
 const renderCard = () => {
-    for(let i = 0; i < recipes.length; i++) {
-      const myHtml = `
-        <article class ="cards" data-id="${recipes.id}">
+  for (let i = 0; i < recipes.length; i++) {
+    const author = recipes[i].author;
+    const recipeSteps = recipes[i].steps;
+    const recipeIngredients = recipes[i].ingredients;
+    var list = "";
+    recipeSteps.forEach(addStep);
+    function addStep(result) {
+      list += "<li>" + result + "</li>";
+    };
+    var list2 = "";
+    recipeIngredients.forEach(addIngredients);
+    function addIngredients(result) {
+      list2 += "<li>" + result + "</li>";
+    };
+    const myHtml = `
+        <article class ="cards" data-id="${recipes.id}" data-steps="${list}" data-ingredients="${list2}" data-author="${author}">
           <h2>${recipes[i].title}</h2>
           <img src="${recipes[i].picture}"></img>
           <div class="card">
-            <p>${recipes[i].difficulty}</p>
-            <p>${recipes[i].timing}</p>
-            <p>${recipes[i].author}</p>
+            <p class='difficulty'>Time: ${recipes[i].difficulty}</p>
+            <p class='timing'>Difficulty: ${recipes[i].timing}</p>
           </div>
           <button type="button" class="show-modal">More Info</button>
         </article>
       `
-
-      // Append the Html to DOM
-
-      const container = document.querySelector('.container');
-      container.insertAdjacentHTML("beforeend", myHtml);
-      console.log(container);
-    };
-  // check the recipes collection
-	// generate the HTML
-	// put it in the DOM
-};
-
-const handleModalButton = event => {
-	if (event.target.matches('button.show-modal')) {
-    const parent = event.target.closest('article');
-    const id = parent.dataset.id;
-    const object = recipes.find(recipeObj => recipeObj.id === id)
-    outerModal.classList.add('open');
-    const openModal = renderCard(object);
-	innerModal.innerHTML = openModal;
-    };
+    // Append the Html to DOM
+    container.insertAdjacentHTML("beforeend", myHtml);
   };
 
-// const closeModalWithEscapeKey = event => {
-// 	if (event.key === 'Escape') {
-// 		outerModal.classList.remove('open');
-// 	}
-// };
+  // Generate Button that will show the form
+  const showFormBtn = `<button type="button" class="showFormBtn">Add a recipe</button>`;
+  container.insertAdjacentHTML('afterend', showFormBtn);
+};
+
+// Close the modal
+
+const openModal = () => {
+  outerModal.classList.add('open');
+};
+
+
+const handleModalButton = event => {
+  if (event.target.matches('button.show-modal')) {
+    const parent = event.target.closest('article');
+    const title = parent.querySelector('h2').textContent;
+    const { author, ingredients, steps } = parent.dataset;
+    const picture = parent.querySelector('img').src;
+    const difficulty = parent.querySelector('.difficulty').textContent;
+    const timing = parent.querySelector('.timing').textContent;
+    const id = Number(parent.dataset.id);
+    const recipe = recipes.find(recipe => recipe.id === id);
+    openModal(recipe);
+    innerModal.innerHTML = `
+          <article class="cards">
+          <p>${title} by ${author}</p>
+          <img src="${picture}"></img>
+          <div class="card-title">
+            <p>${difficulty}</p>
+            <p>${timing}</p>
+          </div>
+          <div class="card-list">
+            <ol>
+              <li>
+                ${ingredients}
+              </li>
+            </ol>
+            <ul>
+              <li>
+                ${steps}
+              </li>
+            </ul>
+          </div>
+          </article>`
+  };
+};
+
+// Generate form modal
+
+const creatFormMoadal = (e) => {
+  if (e.target.matches('button.showFormBtn')) {
+    innerModal.innerHTML = `
+        <form id="addRecipeForm">
+        <label for="title">What's the recipe name?</label>
+        <input
+          id="title"
+          name="title"
+          type="text"
+          placeholder="The name of your recipe"
+          value="Eggs"
+        />
+        <label for="picture">Picture of the result (URL)</label>
+        <input
+          type="url"
+          id="picture"
+          name="picture"
+          placeholder="Enter the URL of your picture"
+          value="https://bit.ly/2ByKjgb"
+        />
+        <label for="author">Who's the chef?</label>
+        <input
+          type="Text"
+          name="author"
+          id="author"
+          placeholder="Type in the chef's name"
+          value="Loïc"
+        />
+        <label for="difficulty">What's the difficulty?</label>
+        <select name="difficulty" id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <label for="timing">How much time does it take?</label>
+        <select name="timing" id="timing">
+          <option value="<15min">Less than 15 minutes</option>
+          <option value="15min">15 minutes</option>
+          <option value="30min">30 minutes</option>
+          <option value="45min">45 minutes</option>
+          <option value="60min">1 hour</option>
+          <option value=">60min">More than an hour</option>
+        </select>
+        <label for="ingredient1">Ingredients</label>
+        <ul id="ingredientList">
+          <li>
+            <input
+              type="text"
+              id="ingredient1"
+              name="ingredient1"
+              value="Ingredient 1"
+            />
+          </li>
+        </ul>
+        <button type="button" class="addIngredient">
+          Add a new ingredient to the list
+        </button>
+        <label for="step1">Steps</label>
+        <ul id="stepList">
+          <li>
+            <input type="text" id="step1" name="step1" value="Step 1" />
+          </li>
+        </ul>
+        <button type="button" class="addStep">
+          Add a new step to the list
+        </button>
+        <button type="submit" class="addRecipe">Add your recipe</button>
+      </form>
+      <button type="submit" class="submit">Submit</button>
+    `
+    outerModal.classList.add('open')
+  };
+};
+
+// 1) Generate add ingredient input
+const addIngredientInput = e => {
+  if (e.target.matches('button.addIngredient')) {
+    const ingredientListElement = document.querySelector('#ingredientList');
+    const liHTML = `
+     <li>
+        <input id="ingredient type="text" name="ingredient" value="Ingredient"/>
+     </li>`;
+    ingredientListElement.insertAdjacentHTML('beforeend', liHTML);
+  };
+};
+
+// Generate add steps
+
+const addStepsInput = e => {
+  if (e.target.matches('button.addStep')) {
+    const ingredientListElement = document.querySelector('#stepList');
+    const liHTML = `
+     <li>
+        <input id="steps type="text" name="step"/>
+     </li>`;
+    ingredientListElement.insertAdjacentHTML('beforeend', liHTML);
+  };
+};
+
+// Handle the escape key to close the modal
+
+const closeModalWithEscapeKey = event => {
+  if (event.key === 'Escape') {
+    outerModal.classList.remove('open');
+  }
+};
+
+// Listen to the events
 
 generateButton.addEventListener('click', renderCard);
-// window.addEventListener('keydown', closeModalWithEscapeKey);
 window.addEventListener('click', handleModalButton);
+window.addEventListener('click', creatFormMoadal);
+window.addEventListener('click', addIngredientInput);
+window.addEventListener('click', addStepsInput);
+window.addEventListener('keydown', closeModalWithEscapeKey);
 
-// <article>
-// <p></p>
-// <img src=""></img>
-// <div class="card-title">
-//   <p></p>
-//   <p></p>
-// </div>
-// <div class="card-list">
-//   <ol>
-//     <li></li>
-//     <li></li>
-//     <li></li>
-//   </ol>
-//   <ul>
-//     <li></li>
-//     <li></li>
-//     <li></li>
-//   </ul>
-// </div>
-// </article>
+
 

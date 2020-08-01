@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>WKP5</title>
-  </head>
-  <style>
-    .container {
-      background-color: rgba(0, 0, 0, 0.178);
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WKP5</title>
+</head>
+<style>
+  .container {
+    background-color: rgba(0, 0, 0, 0.178);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-inline-start: 1rem;
+    padding-inline-end: 1rem;
   }
 
   .card {
@@ -21,56 +24,94 @@
 
   .cards {
     background-color: burlywood;
-    margin-block-end: 2rem;
-    padding: 1rem;
+    margin-block-start: auto;
+    margin-block-end: auto;
     border-radius: 0.5rem;
+    width: 300px;
   }
 
-    img {
-      max-width: 100%;
-    }
+  img {
+    max-width: 60%;
+    padding-inline-start: 2rem;
+    padding-inline-end: 2rem;
+  }
 
-    /* .card-title {
-
-    } */
-
-    .card-list {
+  .card-list {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-evenly;
   }
 
-    .outer-modal {
-      background-color: rgba(85, 107, 47, 0.856);
-      display: grid;
-      place-items: center center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-	    opacity: 0;
-    }
+  .show-modal {
+    background-color: rgba(216, 112, 147, 0.993);
+    text-align: center;
+  }
 
-    .outer-modal.open {
-	    pointer-events: all;
-	    opacity: 1;
-    }
+  .outer-modal {
+    background-color: rgba(85, 107, 47, 0.856);
+    display: grid;
+    place-items: center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    opacity: 0;
+  }
 
-    .inner-modal {
-      background-color: white;
-      min-width: 300px;
-      min-height: 300px;
-    }
-  </style>
-	<body>
-		<div class="container"></div>
-    <button class="generate">GENERATE RECIPES</button>
-    <div class="outer-modal">
-      <div class="inner-modal">
-      </div>
+  form {
+    max-width: 500px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #333333;
+    border-radius: 2rem;
+    border: 0.3rem yellow solid;
+    padding: 2rem;
+  }
+
+  .card-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  p {
+    padding-inline-start: 1rem;
+  }
+
+  .addButton {
+  margin-block-end: 2rem;
+  }
+
+  label {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: aqua;
+  }
+
+  .outer-modal.open {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  .inner-modal {
+    background-color: white;
+    min-width: 300px;
+    min-height: 300px;
+  }
+</style>
+
+<body>
+  <div class="container"></div>
+  <button class="generate">GENERATE RECIPES</button>
+  <div class="outer-modal">
+    <div class="inner-modal">
     </div>
-	</body>
-	<script src="script.js"></script>
+  </div>
+</body>
+<script src="script.js"></script>
+
 </html>
