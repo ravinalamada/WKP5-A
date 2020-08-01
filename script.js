@@ -21,7 +21,7 @@ const recipes = [
 			'Wait, put them out',
 			'Add some salt on it',
 		],
-		id: 'eggs',
+		id: 'eggs-recipe',
 	},
 	{
 		title: 'Eggs',
@@ -36,7 +36,7 @@ const recipes = [
 			'Wait, put them out',
 			'Add some salt on it',
 		],
-		id: 'fish',
+		id: 'fish-recipe',
 	},
 	{
 		title: 'My recipe',
@@ -51,7 +51,7 @@ const recipes = [
 			'Wait, put them out',
 			'Add some salt on it',
 		],
-		id: 'chicken',
+		id: 'chicken-recipe',
 	},
 ];
 
@@ -90,8 +90,7 @@ const handleModalButton = event => {
     const object = recipes.find(recipeObj => recipeObj.id === id)
     outerModal.classList.add('open');
     const openModal = renderCard(object);
-    innerModal.innerHTML = openModal;
-
+	innerModal.innerHTML = openModal;
     };
   };
 
