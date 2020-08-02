@@ -62,18 +62,18 @@ const renderCard = () => {
     const author = recipes[i].author;
     const recipeSteps = recipes[i].steps;
     const recipeIngredients = recipes[i].ingredients;
-    var list = "";
-    recipeSteps.forEach(addStep);
-    function addStep(result) {
-      list += "<li>" + result + "</li>";
+    let stepContents = "";
+    recipeSteps.forEach(addSteps);
+    function addSteps(value) {
+      stepContents += "<li>" + value + "</li>";
     };
-    var list2 = "";
+    let ingredientContents = "";
     recipeIngredients.forEach(addIngredients);
-    function addIngredients(result) {
-      list2 += "<li>" + result + "</li>";
+    function addIngredients(value) {
+      ingredientContents += "<li>" + value + "</li>";
     };
     const myHtml = `
-        <article class ="cards" data-id="${recipes.id}" data-steps="${list}" data-ingredients="${list2}" data-author="${author}">
+        <article class ="cards" data-id="${recipes.id}" data-steps="${stepContents}" data-ingredients="${ingredientContents}" data-author="${author}">
           <h2>${recipes[i].title}</h2>
           <img src="${recipes[i].picture}"></img>
           <div class="card">
@@ -120,14 +120,10 @@ const handleModalButton = event => {
           </div>
           <div class="card-list">
             <ol>
-              <li>
-                ${ingredients}
-              </li>
+              ${ingredients}
             </ol>
             <ul>
-              <li>
-                ${steps}
-              </li>
+              ${steps}
             </ul>
           </div>
           </article>`
@@ -202,11 +198,11 @@ const creatFormMoadal = (e) => {
         <button type="button" class="addStep">
           Add a new step to the list
         </button>
-        <button type="submit" class="addRecipe">Add your recipe</button>
+        <button type="submit" class="addRecipe">Submit your recipe</button>
       </form>
-      <button type="submit" class="submit">Submit</button>
     `
-    outerModal.classList.add('open')
+
+    openModal();
   };
 };
 
@@ -244,6 +240,7 @@ const closeModalWithEscapeKey = event => {
 };
 
 // Listen to the events
+const formEl = document.querySelector('#addRecipeForm');
 
 generateButton.addEventListener('click', renderCard);
 window.addEventListener('click', handleModalButton);
