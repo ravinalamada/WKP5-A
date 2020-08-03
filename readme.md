@@ -7,7 +7,7 @@
 
 ### Code requirements
 
-I think some of them meet the requirement.
+I think some of them meet the requirement but some of them don't.
 
 ### Improvement that I wish to make with my code
 
