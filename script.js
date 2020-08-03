@@ -177,7 +177,7 @@ const creatFormMoadal = (e) => {
         </select>
         <label for="ingredient1">Ingredients</label>
         <ul id="ingredientList">
-          <li>
+          <li class="ingredientsItem">
             <input
               type="text"
               id="ingredient1"
@@ -191,7 +191,7 @@ const creatFormMoadal = (e) => {
         </button>
         <label for="step1">Steps</label>
         <ul id="stepList">
-          <li>
+          <li class="stepItem">
             <input type="text" id="step1" name="step1" value="Step 1" />
           </li>
         </ul>
@@ -201,7 +201,6 @@ const creatFormMoadal = (e) => {
         <button type="submit" class="addRecipe">Submit your recipe</button>
       </form>
     `
-
     openModal();
   };
 };
@@ -218,6 +217,36 @@ const addIngredientInput = e => {
   };
 };
 
+// Submit form
+const submitForm = (event) => {
+  event.preventDefault();
+  if (event.target.matches('button.addRecipe')) {
+    const formEl = event.target.closest('#addRecipeForm');
+    const heading = formEl.querySelector('#title');
+    const author = formEl.querySelector("#author");
+    const picture = formEl.querySelector('#picture').src;
+    const difficulty = formEl.querySelector('#difficulty');
+    const timing = formEl.querySelector('#timing');
+    const ingredients = formEl.querySelector('#ingredientsItem');
+    const steps = formEl.querySelector('#stepItem');
+    const formHtml = `
+    <article class="cards">
+      <h2>${heading.value} by ${author.value}</h2>
+      <img scr="${picture}"></img>
+      <div>
+        <p>${difficulty.value}</p>
+        <p>${timing.value}</p>
+      </div>
+      <div>
+        <p>${ingredients}</p>
+        <p>${steps}</p>
+      </div>
+  `
+    innerModal.innerHTML = formHtml;
+    openModal();
+  };
+
+};
 // Generate add steps
 
 const addStepsInput = e => {
@@ -240,13 +269,13 @@ const closeModalWithEscapeKey = event => {
 };
 
 // Listen to the events
-const formEl = document.querySelector('#addRecipeForm');
 
 generateButton.addEventListener('click', renderCard);
 window.addEventListener('click', handleModalButton);
 window.addEventListener('click', creatFormMoadal);
 window.addEventListener('click', addIngredientInput);
 window.addEventListener('click', addStepsInput);
+window.addEventListener('click', submitForm);
 window.addEventListener('keydown', closeModalWithEscapeKey);
 
 
